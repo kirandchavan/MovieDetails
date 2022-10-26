@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Layouts from '../../themes/Layouts'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -68,6 +68,9 @@ const LoginScreen = () => {
         <View style={[Layouts.flexContainer]}>
             <CustomStatusBar statusBarColor={Colors.WHITE} barStyle='dark-content' />
             <View style={[Layouts.centerContainer, Metrics.mh24]}>
+
+                <Label labelStyle={[AppFontSizes.merriweather900, Metrics.mt16, { color: Colors.BLACK, paddingBottom: 20 }]} label={buttonTitles.LOGIN} />
+
                 <Input
                     placeholder={placeholders.EMAIL}
                     value={email}
@@ -79,9 +82,8 @@ const LoginScreen = () => {
                     keyboardType={'email-address'}
                     returnKeyLabel="next"
                     returnKeyType="next"
-                    ref={passwordInput}
                     onSubmitEditing={() => { passwordInput.current.focus() }}
-                    inputStyle={[AppStyles.input, Metrics.plr20]}
+                    inputStyle={[AppStyles.input, Metrics.mt24, Metrics.plr20]}
                 />
                 <Input
                     placeholder={placeholders.EMAIL}
@@ -99,7 +101,7 @@ const LoginScreen = () => {
                     inputStyle={[AppStyles.input, Metrics.plr20, Metrics.mt24]}
                 />
 
-                <Label labelStyle={[AppFontSizes.mulishRegularF12, Metrics.mt16, { color: Colors.ERROR }]} label={loginError} />
+                {loginError && <Label labelStyle={[AppFontSizes.mulishRegularF12, Metrics.mt16, { color: Colors.ERROR }]} label={loginError} />}
 
                 <AppButton
                     title={buttonTitles.LOGIN}

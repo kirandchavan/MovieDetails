@@ -18,7 +18,7 @@ export const getTraindingMovies = (params) => {
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,
-                headers: {},
+                headers: { 'Content-Type': 'application/json' },
             });
             if (response) {
                 const { responseData } = response;
@@ -40,7 +40,7 @@ export const getPopularMovies = (params = 1) => {
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,
-                headers: {},
+                headers: { 'Content-Type': 'application/json' },
             });
             if (response) {
                 const { responseData } = response;
@@ -62,7 +62,7 @@ export const getCastOfMovie = ({ movieId }) => {
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,
-                headers: {},
+                headers: { 'Content-Type': 'application/json' },
             });
             if (response) {
                 const { responseData } = response;
@@ -84,7 +84,7 @@ export const getMovieDetails = ({ movieId }) => {
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,
-                headers: {},
+                headers: { 'Content-Type': 'application/json' },
             });
             if (response) {
                 const { responseData } = response;
@@ -106,7 +106,7 @@ export const searchMovieName = ({ search }) => {
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,
-                headers: {},
+                headers: { 'Content-Type': 'application/json' },
             });
             if (response) {
                 const { responseData } = response;
