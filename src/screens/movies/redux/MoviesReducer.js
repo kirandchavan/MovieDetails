@@ -58,7 +58,6 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 popularMoviesLoading: true,
                 popularMoviesError: '',
-                popularMovies: [],
             }
         }
 
@@ -76,7 +75,7 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 popularMoviesLoading: false,
                 popularMoviesError: '',
-                popularMovies: payload,
+                popularMovies: [...state.popularMovies, ...payload],
             }
         }
         //cast

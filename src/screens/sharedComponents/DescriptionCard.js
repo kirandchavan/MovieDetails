@@ -42,7 +42,7 @@ const DescriptionCard = ({ casts, movieDetail }) => {
                     />
                 </View>
                 <View style={Metrics.mt16}>
-                    {movieDetail?.genres && <CategoriesCard item={movieDetail} key={1} sliderWidth={0.9} isDetails={true} />}
+                    {movieDetail?.genres && <CategoriesCard item={movieDetail} sliderWidth={0.9} key={1} isDetails={true} />}
                 </View>
                 <View style={[Metrics.mt16, Layouts.flexRowSpaceBetween]}>
                     <OverviewCard runtime={movieDetail.runtime} language={movieDetail?.spoken_languages?.[0].name} rating={movieDetail.vote_average} />

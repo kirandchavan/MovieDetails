@@ -32,10 +32,11 @@ export const getTraindingMovies = (params) => {
     }
 }
 
-export const getPopularMovies = (params = 1) => {
+export const getPopularMovies = (params) => {
     return async (dispatch) => {
         dispatch({ type: START_LOADING_POPULAR_MOVIES })
         try {
+            // let pageNumber = page ? page : 0
             const endpoint = `${MOVIES_POPULAR}&page=${params}`;
             const response = await callAPI({
                 method: METHOD.GET,
@@ -98,11 +99,12 @@ export const getMovieDetails = ({ movieId }) => {
     }
 }
 
-export const searchMovieName = ({ search }) => {
+export const searchMovieName = ({ search, page }) => {
     return async (dispatch) => {
         dispatch({ type: START_LOADING_SEARCH })
         try {
-            const endpoint = `/3/search/movie?api_key=${KEY}&language=en-US&query=${search}&page=1&include_adult=false`;
+            const pageNumber = page ? page : 1
+            const endpoint = `/3/search/movie?api_key=${KEY}&language=en-US&query=${search}&page=${3}&include_adult=false`;
             const response = await callAPI({
                 method: METHOD.GET,
                 endpoint,

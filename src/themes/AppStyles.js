@@ -92,6 +92,19 @@ const AppStyles = StyleSheet.create({
     marginTop: 24,
     alignItems: 'center',
     backgroundColor: Colors.PURPLE_CATEGORY
+  },
+  searchBorder: {
+    padding: 15,
+    paddingLeft: 0,
+    borderBottomColor: Colors.BORDER
+  },
+  loadMoreBtn: {
+    padding: 15,
+    borderRadius: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.BLUE
   }
 });
 

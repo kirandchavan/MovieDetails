@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View, Dimensions, } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator, TouchableOpacity, } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Label from '../../components/Label';
 import { buttonTitles, subHeadings } from '../../constants/TextConstants';
@@ -13,8 +13,19 @@ import ListCard from './ListCard';
 import NowShowingMoviesCard from './NowShowingMoviesCard';
 import PopularMoviesCard from './PopularMoviesCard';
 
-const CarousalCards = ({ data, popular }) => {
-  const navigation = useNavigation();
+import * as action from '../movies/redux/MoviesActions'
+
+const CarousalCards = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch()
+  const { popularMovies } = useSelector(state => state.moviesReducer);
+  const { trandingMovies } = useSelector(state => state.moviesReducer);
+  const [page, setpage] = useState(1)
+
+  useEffect(() => {
+    dispatch(action.getTraindingMovies())
+    dispatch(action.getPopularMovies(page))
+  }, [])
 
   // Render now showing movies cards 
   const renderNowShowing = (item, index) => {
@@ -30,10 +41,34 @@ const CarousalCards = ({ data, popular }) => {
     )
   }
 
+  const loadMoreData = (page) => {
+    dispatch(action.getPopularMovies(page))
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500);
+  }
+
+  const setPageForLoadMore = () => {
+    setIsLoading(true)
+    setpage(page + 1)
+    loadMoreData(page + 1)
+  }
+
+  const loadMoreMovies = () => {
+    return (
+      <View style={[Layouts.selfAlign, Layouts.row, Metrics.padding10]}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => setPageForLoadMore()} style={AppStyles.loadMoreBtn}>
+          {isLoading ? <ActivityIndicator size={'small'} color="white" /> :
+            <Label label={'load more'} labelStyle={[AppFontSizes.mulishRegularF14, { color: Colors.WHITE }]} />}
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
-    <View >
+    <View key={'1'}>
       {/* Render now showing movies vertical card on dashboard */}
-      <View style={[Layouts.flexRowSpaceBetween, Metrics.mh24]}>
+      <View style={[Layouts.flexRowSpaceBetween, Metrics.mh24]} key={'2'}>
         <Label labelStyle={[AppFontSizes.merriweather900]} label={subHeadings.NOW_SHOWING} />
         <AppButton
           title={buttonTitles.SEE_MORE}
@@ -42,10 +77,10 @@ const CarousalCards = ({ data, popular }) => {
           textStyle={[AppFontSizes.mulishRegularF10, { color: Colors.BORDER }]}
         />
       </View>
-      <View style={Metrics.mt6}>
+      <View style={Metrics.mt6} key={'3'}>
         <ListCard
-          data={data}
-          extraData={data}
+          data={trandingMovies}
+          extraData={trandingMovies}
           renderItem={renderNowShowing}
           isHorizontal={true}
           showsVerticalScrollIndicator={false}
@@ -55,7 +90,7 @@ const CarousalCards = ({ data, popular }) => {
       </View>
 
       {/* Render Popular movies vertical card on dashboard */}
-      <View style={[Layouts.flexRowSpaceBetween, Metrics.mt24, Metrics.mh24]}>
+      <View style={[Layouts.flexRowSpaceBetween, Metrics.mt24, Metrics.mh24]} key={'4'}>
         <Label labelStyle={[AppFontSizes.merriweather900]} label={subHeadings.POPULAR} />
         <AppButton
           title={buttonTitles.SEE_MORE}
@@ -64,15 +99,18 @@ const CarousalCards = ({ data, popular }) => {
           textStyle={[AppFontSizes.mulishRegularF10, { color: Colors.BORDER }]}
         />
       </View>
-      <View style={Metrics.mt6}>
+      <View style={Metrics.mt6} key={'5'}>
         <ListCard
-          data={popular}
-          extraData={popular}
+          data={popularMovies}
+          extraData={popularMovies}
           renderItem={renderPopular}
           isHorizontal={false}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ marginLeft: 24, paddingRight: 40 }}
+          ListFooterComponent={loadMoreMovies}
+          onEndReachedThreshold={0.1}
+          refreshing={isLoading}
         />
       </View>
     </View>

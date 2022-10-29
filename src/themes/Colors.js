@@ -11,6 +11,7 @@ const RATE_GREY = '#9C9C9C'
 const LIGHT_PURPLE = '#DBE3FF'
 const PURPLE_CATEGORY = '#88A4E8'
 const CASTNAME = '#110E47'
+const BLUE = '#0000ff'
 
 export default {
     WHITE,
@@ -22,5 +23,6 @@ export default {
     RATE_GREY,
     LIGHT_PURPLE,
     PURPLE_CATEGORY,
-    CASTNAME
+    CASTNAME,
+    BLUE
 }
